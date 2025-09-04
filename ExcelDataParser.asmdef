@@ -1,9 +1,7 @@
 {
-    "name": "Excel",
+    "name": "ExcelDataParser",
     "rootNamespace": "",
-    "references": [
-        "U0UGames.Core"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
