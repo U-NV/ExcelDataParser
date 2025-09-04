@@ -2,6 +2,20 @@
 
 Unity编辑器插件，提供完整的Excel文件读写功能。支持Excel文件的读取、解析、创建和写入，具备强大的数据验证、类型转换和异常处理能力。
 
+## 安装插件
+
+### 方法一：Package Manager安装（推荐）
+1. 在Unity编辑器中打开 `Window > Package Manager`
+2. 点击左上角的 `+` 按钮，选择 `Add package from git URL`
+3. 输入：`https://github.com/U-NV/ExcelDataParser.git`
+4. 点击 `Add` 完成安装
+
+### 方法二：手动安装
+1. 下载最新版本的插件包
+2. 解压到Unity项目的 `Assets/` 目录下
+3. 重新打开Unity编辑器
+
+
 ## 功能特性
 
 ### 📖 ExcelReader - 数据读取器
@@ -32,6 +46,13 @@ Unity编辑器插件，提供完整的Excel文件读写功能。支持Excel文�
 - **配置表生成**: 从Excel生成游戏配置表
 - **数据分析**: 在Unity中分析Excel数据
 
+## 系统要求
+
+- **Unity版本**: Unity 2019.4.25f1 或更高版本
+- **.NET Framework**: 4.7.1 或更高版本
+- **依赖库**: EPPlus库（已包含在插件中）
+- **支持格式**: .xlsx, .xls
+
 ## 快速开始
 
 ### 读取Excel文件
@@ -57,16 +78,26 @@ foreach (var row in data)
 ```csharp
 using U0UGames.Excel;
 
-// 创建Excel文件
-var filePath = "Assets/Data/Output.xlsx";
-var data = new List<Dictionary<string, object>>
-{
-    new Dictionary<string, object> { {"Name", "张三"}, {"Age", 25}, {"Score", 95.5} },
-    new Dictionary<string, object> { {"Name", "李四"}, {"Age", 30}, {"Score", 88.0} }
-};
+// 创建Excel数据
+var excelData = new ExcelWriter.ExcelData();
 
-// 写入数据
-ExcelWriter.WriteDataToFile(filePath, data);
+// 设置数据（按行列位置）
+excelData[1, 1] = "Name";      // A1
+excelData[1, 2] = "Age";       // B1
+excelData[1, 3] = "Score";     // C1
+excelData[2, 1] = "张三";      // A2
+excelData[2, 2] = "25";        // B2
+excelData[2, 3] = "95.5";      // C2
+excelData[3, 1] = "李四";      // A3
+excelData[3, 2] = "30";        // B3
+excelData[3, 3] = "88.0";      // C3
+
+// 保存文件
+var filePath = "Assets/Data/Output.xlsx";
+ExcelWriter.SaveFile(excelData, filePath);
+
+// 或者使用自定义工作表名称
+ExcelWriter.SaveFile(excelData, filePath, "MySheet");
 ```
 
 ### 配置设置
@@ -77,6 +108,36 @@ ExcelReaderConfig.CustomKeywords.Add("custom_key");
 ExcelReaderConfig.CaseSensitive = true;
 ExcelReaderConfig.MaxRows = 5000;
 ExcelReaderConfig.StrictValidation = false;
+```
+
+### ExcelWriter详细用法
+
+```csharp
+using U0UGames.Excel;
+
+// 创建Excel数据对象
+var excelData = new ExcelWriter.ExcelData();
+
+// 方法1: 使用索引器设置数据
+excelData[1, 1] = "Header1";  // A1单元格
+excelData[1, 2] = "Header2";  // B1单元格
+excelData[2, 1] = "Data1";    // A2单元格
+excelData[2, 2] = "Data2";    // B2单元格
+
+// 方法2: 批量设置数据
+for (int row = 1; row <= 10; row++)
+{
+    for (int col = 1; col <= 5; col++)
+    {
+        excelData[row, col] = $"R{row}C{col}";
+    }
+}
+
+// 保存文件（使用默认工作表名称）
+ExcelWriter.SaveFile(excelData, "Assets/Data/Output.xlsx");
+
+// 保存文件（使用自定义工作表名称）
+ExcelWriter.SaveFile(excelData, "Assets/Data/Output.xlsx", "MyCustomSheet");
 ```
 
 ## 支持的数据类型
@@ -127,11 +188,37 @@ catch (ExcelException ex)
 - **批量处理**: 支持批量数据操作，提高处理效率
 - **缓存机制**: 内置缓存机制，避免重复解析
 
-## 系统要求
+## 故障排除
 
-- Unity 2019.4.25f1 或更高版本
-- .NET Framework 4.7.1 或更高版本
-- EPPlus库支持
+### 常见问题
+
+**Q: 安装后无法找到ExcelDataParser？**
+A: 确保已正确安装插件，检查Package Manager中是否显示插件已安装。
+
+**Q: 读取Excel文件时出现权限错误？**
+A: 确保Excel文件没有被其他程序占用，检查文件路径是否正确。
+
+**Q: 数据验证失败？**
+A: 检查Excel文件格式是否符合要求，确保关键词行以#开头。
+
+**Q: 内存不足错误？**
+A: 对于大文件，可以调整`ExcelReaderConfig.MaxRows`和`ExcelReaderConfig.MaxColumns`限制。
+
+### 调试技巧
+
+```csharp
+// 启用详细日志
+ExcelReaderConfig.StrictValidation = true;
+
+// 检查文件是否支持
+if (ExcelReader.IsSupportedFile("your_file.xlsx"))
+{
+    var data = ExcelReader.GetRawData("your_file.xlsx");
+}
+
+// 清理缓存
+ExcelReader.ClearCache();
+```
 
 ## 许可证
 
@@ -148,5 +235,6 @@ MIT License
 ## 技术支持
 
 如有问题，请通过以下方式联系：
-- 邮箱: support@u0ugames.com
-- GitHub Issues: [提交问题](https://github.com/U-NV/FeiShu-Unity-Integration/issues)
+- 邮箱: haowei1117@foxmail.com
+- GitHub Issues: [提交问题](https://github.com/U-NV/ExcelDataParser/issues)
+- GitHub仓库: [ExcelDataParser](https://github.com/U-NV/ExcelDataParser)

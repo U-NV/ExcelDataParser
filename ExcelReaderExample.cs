@@ -181,5 +181,45 @@ namespace U0UGames.Excel
                 Debug.LogError($"位置: 工作表 {ex.SheetName}, 行 {ex.Row}, 列 {ex.Column}");
             }
         }
+        
+        /// <summary>
+        /// ExcelWriter使用示例
+        /// </summary>
+        public static void ExcelWriterExample()
+        {
+            try
+            {
+                // 创建Excel数据
+                var excelData = new ExcelWriter.ExcelData();
+                
+                // 设置表头
+                excelData[1, 1] = "ID";
+                excelData[1, 2] = "Name";
+                excelData[1, 3] = "Level";
+                excelData[1, 4] = "Score";
+                
+                // 设置数据行
+                excelData[2, 1] = "1";
+                excelData[2, 2] = "Player1";
+                excelData[2, 3] = "10";
+                excelData[2, 4] = "1500";
+                
+                excelData[3, 1] = "2";
+                excelData[3, 2] = "Player2";
+                excelData[3, 3] = "15";
+                excelData[3, 4] = "2200";
+                
+                // 保存文件
+                var filePath = "Assets/Data/PlayerData.xlsx";
+                ExcelWriter.SaveFile(excelData, filePath, "Players");
+                
+                Debug.Log($"Excel文件已保存到: {filePath}");
+            }
+            catch (ExcelWriteException ex)
+            {
+                Debug.LogError($"保存Excel文件失败: {ex.Message}");
+                Debug.LogError($"文件路径: {ex.FilePath}");
+            }
+        }
     }
 }
