@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace U0UGames.Excel
+namespace U0UGames.ExcelDataParser
 {
     /// <summary>
     /// ExcelReader使用示例

@@ -5,7 +5,7 @@ using System.IO;
 using OfficeOpenXml;
 using UnityEngine;
 
-namespace U0UGames.Excel
+namespace U0UGames.ExcelDataParser
 {
     /// <summary>
     /// Excel写入异常

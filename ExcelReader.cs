@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using OfficeOpenXml;
 using UnityEngine;
 
-namespace U0UGames.Excel
+namespace U0UGames.ExcelDataParser
 {
     /// <summary>
     /// Excel读取器配置类
