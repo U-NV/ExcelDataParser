@@ -35,9 +35,6 @@ namespace U0UGames.ExcelDataParser
         /// <summary>支持的文件扩展名</summary>
         public static string[] SupportedExtensions { get; set; } = { ".xlsx", ".xls" };
         
-        /// <summary>有效的变量名正则表达式</summary>
-        public static string VariableNamePattern { get; set; } = @"^[a-zA-Z_][a-zA-Z0-9_]*$";
-        
         /// <summary>有效的类型列表</summary>
         public static string[] ValidTypes { get; set; } = { "string", "int", "float", "double", "bool", "list", "array", "object" };
     }
@@ -259,16 +256,6 @@ namespace U0UGames.ExcelDataParser
             
             if (ExcelReaderConfig.StrictValidation)
             {
-                // 验证变量名格式
-                foreach (var name in nameList)
-                {
-                    if (!IsValidVariableName(name))
-                    {
-                        Debug.LogError($"第{columnData.ColumnIndex}列包含无效的变量名: {name}");
-                        return false;
-                    }
-                }
-                
                 // 验证类型格式
                 foreach (var type in typeList)
                 {
@@ -281,26 +268,6 @@ namespace U0UGames.ExcelDataParser
             }
             
             return true;
-        }
-        
-        /// <summary>
-        /// 验证变量名是否有效
-        /// </summary>
-        /// <param name="name">变量名</param>
-        /// <returns>如果有效返回true，否则返回false</returns>
-        private static bool IsValidVariableName(string name)
-        {
-            if (string.IsNullOrWhiteSpace(name)) return false;
-            
-            try
-            {
-                return Regex.IsMatch(name, ExcelReaderConfig.VariableNamePattern);
-            }
-            catch
-            {
-                // 如果正则表达式无效，使用简单的验证
-                return char.IsLetter(name[0]) && name.All(c => char.IsLetterOrDigit(c) || c == '_');
-            }
         }
         
         /// <summary>

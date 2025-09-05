@@ -77,9 +77,6 @@ namespace U0UGames.ExcelDataParser
             // 自定义支持的文件格式
             ExcelReaderConfig.SupportedExtensions = new[] { ".xlsx", ".xls", ".csv" };
             
-            // 自定义变量名验证规则
-            ExcelReaderConfig.VariableNamePattern = @"^[a-zA-Z][a-zA-Z0-9_]*$";
-            
             // 自定义类型列表
             ExcelReaderConfig.ValidTypes = new[] { 
                 "string", "int", "float", "double", "bool", 
