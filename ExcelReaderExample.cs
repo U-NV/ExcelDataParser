@@ -78,10 +78,10 @@ namespace U0UGames.ExcelDataParser
             ExcelReaderConfig.SupportedExtensions = new[] { ".xlsx", ".xls", ".csv" };
             
             // 自定义类型列表
-            ExcelReaderConfig.ValidTypes = new[] { 
-                "string", "int", "float", "double", "bool", 
-                "list", "array", "object", "vector3", "color" 
-            };
+            // ExcelReaderConfig.ValidTypes = new[] { 
+            //     "string", "int", "float", "double", "bool", 
+            //     "list", "array", "object", "vector3", "color" 
+            // };
             
             // 添加更多自定义关键词
             ExcelReaderConfig.CustomKeywords.AddRange(new[] {

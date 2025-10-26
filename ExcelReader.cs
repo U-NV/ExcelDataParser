@@ -35,8 +35,8 @@ namespace U0UGames.ExcelDataParser
         /// <summary>支持的文件扩展名</summary>
         public static string[] SupportedExtensions { get; set; } = { ".xlsx", ".xls" };
         
-        /// <summary>有效的类型列表</summary>
-        public static string[] ValidTypes { get; set; } = { "string", "int", "float", "double", "bool", "list", "array", "object" };
+        // / <summary>有效的类型列表</summary>
+        // public static string[] ValidTypes { get; set; } = { "string", "int", "float", "double", "bool", "list", "array", "object" };
     }
 
     /// <summary>
@@ -254,35 +254,35 @@ namespace U0UGames.ExcelDataParser
             if (nameList == null || typeList == null) return false;
             if (nameList.Count != typeList.Count) return false;
             
-            if (ExcelReaderConfig.StrictValidation)
-            {
-                // 验证类型格式
-                foreach (var type in typeList)
-                {
-                    if (!IsValidType(type))
-                    {
-                        Debug.LogError($"第{columnData.ColumnIndex}列包含无效的类型: {type}");
-                        return false;
-                    }
-                }
-            }
+            // if (ExcelReaderConfig.StrictValidation)
+            // {
+            //     // 验证类型格式
+            //     foreach (var type in typeList)
+            //     {
+            //         if (!IsValidType(type))
+            //         {
+            //             Debug.LogError($"第{columnData.ColumnIndex}列包含无效的类型: {type}");
+            //             return false;
+            //         }
+            //     }
+            // }
             
             return true;
         }
         
-        /// <summary>
-        /// 验证类型是否有效
-        /// </summary>
-        /// <param name="type">类型字符串</param>
-        /// <returns>如果有效返回true，否则返回false</returns>
-        private static bool IsValidType(string type)
-        {
-            if (string.IsNullOrWhiteSpace(type)) return false;
+        // /// <summary>
+        // /// 验证类型是否有效
+        // /// </summary>
+        // /// <param name="type">类型字符串</param>
+        // /// <returns>如果有效返回true，否则返回false</returns>
+        // private static bool IsValidType(string type)
+        // {
+        //     if (string.IsNullOrWhiteSpace(type)) return false;
             
-            var normalizedType = ExcelReaderConfig.CaseSensitive ? type : type.ToLower();
-            return ExcelReaderConfig.ValidTypes.Any(t => 
-                ExcelReaderConfig.CaseSensitive ? t == normalizedType : t.ToLower() == normalizedType);
-        }
+        //     var normalizedType = ExcelReaderConfig.CaseSensitive ? type : type.ToLower();
+        //     return ExcelReaderConfig.ValidTypes.Any(t => 
+        //         ExcelReaderConfig.CaseSensitive ? t == normalizedType : t.ToLower() == normalizedType);
+        // }
         
         /// <summary>
         /// 检查文件格式是否支持
