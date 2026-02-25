@@ -1,8 +1,8 @@
 {
   "name": "com.u0ugames.excel-data-parser",
-  "displayName": "Excel数据处理工具包",
+  "displayName": "ExcelDataParser",
   "description": "Unity编辑器插件，提供完整的Excel文件读写功能。支持Excel文件的读取、解析、创建和写入，具备强大的数据验证、类型转换和异常处理能力。适用于游戏配置数据管理、表格数据导入导出等场景。",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "unity": "2019.4",
   "unityRelease": "25f1",
   "keywords": [
